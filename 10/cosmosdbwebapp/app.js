@@ -8,80 +8,59 @@
 // This script sample is released under the MIT license. For more information,
 // see https://github.com/fouldsy/azure-mol-samples/blob/master/LICENSE
 
+// This is a very basic Node.js app using Express to display a pizza menu.
+// To keep things simple if Node.js is new to you, there's no error handling 
+// or other Node.js best practices using things like promises.
+
+// The goal of this app is to show the very basics of how easy it is to query
+// Cosmos DB and then display a basic web page using the information returned.
+
 "use strict";
 
-var config = require("./config");
-var url = require('url');
-var http = require('http');
+// Include and define the Express components for a basic web server
+var express = require('express')
+var app = express()
+const port = 3000
 
-// Create a connection to Cosmos DB
-// Here, we use the Document model, and define a connection policy
-var documentClient = require("documentdb").DocumentClient;
-var lib = require("./node_modules/documentdb/lib/");
+// Include the CosmosDB components and define connection information
+const CosmosClient = require('@azure/cosmos').CosmosClient
 
-// The connection policy can use automatic endpoint discovery, or you can specify a list
-// of preferred endpoints.
-var connectionPolicy = new lib.DocumentBase.ConnectionPolicy();
+const config = require('./config')
+const endpoint = config.endpoint
+const key = config.key
 
-// Using automatic discovery is a more dynamic approach, and your code requires no changes
-// as you add or remove endpoints in Cosmos DB.
-// If you wanted to use automatiic endpoint discovery, you would uncomment the following line.
-//connectionPolicy.EnableEndpointDiscovery = 'True';
+const databaseId = config.database.id
+const containerId = config.container.id
 
-// Using a list of preferred locations allows you to control the order in which endpoints
-// are used. In our example, we selected 'West Europe' as an additional endpoint. By then
-// setting 'West Europe' as our preferred location, although all writes still go through the
-// the primary endpoint of 'East US', all reads go through 'West Europe'.
-connectionPolicy.PreferredLocations = ['West Europe', 'East US'];
+// Create a Cosmos DB client
+const client = new CosmosClient({ endpoint, key})
 
-// Now actually make the connection to Cosmos DB using our endpoint, key, and connection policy
-var client = new documentClient(config.uri, { "masterKey": config.primaryKey }, connectionPolicy);
-var databaseUrl = `dbs/${config.database.id}`;
-var collectionUrl = `${databaseUrl}/colls/${config.collection.id}`;
+// Asynchronous function to query Cosmos DB for the pizza menu items
+async function findPizzas() {
+    const { resources } = await client
+        .database(databaseId)
+        .container(containerId)
+        .items.query('SELECT c.description,c.cost FROM c')
+        .fetchAll()
 
-// Start a basic HTTP server in Node.js for our basic web app
-var server = http.createServer(function(request, response) {
+    return resources
+}
 
-    // Start to write a basic HTTP response to render our page
-    response.writeHead(200, {"Content-Type": "text/plain"});
+// Asynchronous fuction to show the pizza menu
+// This function waits for the Cosmos DB query to successfully return
+// then renders the menu using the Express webe server
+async function showPizzas(req, res) {
+    const pizzas = await findPizzas();
 
-    // Output the current write endpoint
-    // This is the endpoint where all write requests route through to ensure data consistency
-    client.getWriteEndpoint(function(endpoint) {
-        response.write('Current write endpoint is: ' + endpoint + '\n\n');
+    // Render the returned list of pizzas from Cosmos DB
+    res.render("index", {
+      "pizzas": pizzas
     });
+  }
 
-    // Output the current read endpoint
-    // This is the power of Cosmos DB. The APIs determine the most appropriate read endpoint and route your
-    // requests accordingly. There's nothing your app does here.
-    // This is purely for informational purposes. You just query the database in the next code block
-    // and let the APIs determine the most appropriate endpoint to pull data from.
-    client.getReadEndpoint(function(endpoint) {
-        response.write('Current read endpoint is: ' + endpoint + '\n\n');
-    });
+// Show the index page when the root page is opened in a web browser
+app.get('/', (req, res, next) => showPizzas(req, res).catch(next))
 
-    // Query the database to obtain a basic list of pizzas and their costs
-    // This can be expanded to sort by price or alphabetically by pizza name, for example
-    client.queryDocuments(
-            collectionUrl,
-            'SELECT c.description,c.cost FROM c'
-        ).toArray((err, results) => {
-            if (err) reject(err)
-            else {
-
-                for (var queryResult of results) {
-                    response.write('Name: ' + queryResult.description + '\n');
-                    response.write('Cost: $' + queryResult.cost+ '\n\n');
-                }
-                response.end();
-            }
-        });
-});
-
-// Start the web server listening on port 3000
-// If you use Azure Web Apps, this port is mapped back to port 80 so that's all you need to
-// enter in your web browser
-var port = process.env.PORT || 3000;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
+// Use Pug as the rendering engine and then start the Express webserver
+app.set('view engine', 'pug')
+app.listen(port, () => console.log(`Pizza store listening on port ${port}!`))

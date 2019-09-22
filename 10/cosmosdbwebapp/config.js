@@ -1,8 +1,9 @@
 var config = {}
 
-config.uri = "";
-config.primaryKey = "";
-config.database = { "id": "pizzadb" };
-config.collection = { "id": "pizzas" };
+config.endpoint = ''
+config.key = ''
+
+config.database = { id: 'pizzadb' }
+config.container = { id: 'pizzas' }
 
 module.exports = config;

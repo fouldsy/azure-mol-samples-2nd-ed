@@ -1,17 +1,19 @@
 {
-  "name": "PizzaStore",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "description": "Very basic pizza store for our Month of Lunches examples",
-  "author": {
-    "name": "Iain Foulds",
-    "email": "i_foulds@live.com"
-  },
-  "dependencies": {
-    "documentdb": "^1.12.2",
-    "express": "~4.14.0"
-  }
+    "name": "PizzaStore",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "description": "Very basic pizza store for our Month of Lunches examples",
+    "author": {
+        "name": "Iain Foulds",
+        "email": "i_foulds@live.com"
+    },
+    "dependencies": {
+        "@azure/cosmos": "^3.2.0",
+        "express": "^4.17.1",
+        "pug": "^2.0.4"
+    }
 }
+

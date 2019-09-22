@@ -1,0 +1,15 @@
+html
+  head
+    title MoL Pizza Store
+  body
+    h1 Month of Pizza Lunches
+    p Welcome to our basic pizza store, now powered by Azure Cosmos DB! Here are some of the yummy pizzas you can soon order online!
+    
+    table
+      tr
+        th Name
+        th Cost
+      each pizza in pizzas
+        tr
+          td #{pizza.description}
+          td #{pizza.cost}
