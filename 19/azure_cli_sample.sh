@@ -35,10 +35,11 @@ az container show \
 # Two nodes are created. It can take ~10 minutes for this operation to
 # successfully complete.
 az aks create \
-    --resource-group azuremolchapter19 \
-    --name azuremol \
-    --node-count 2 \
-    --generate-ssh-keys
+  --resource-group azuremolchapter19 \
+  --name azuremol \
+  --node-count 2 \
+  --vm-set-type VirtualMachineScaleSets \
+  --node-zones 1 2 3
 
 # Get the AKS credentials
 # This gets the Kuebernetes connection information and applies to a local
@@ -57,7 +58,8 @@ az aks install-cli
 kubectl run azuremol \
     --generator=deployment/v1beta1 \
     --image=docker.io/iainfoulds/azuremol:latest \
-    --port=80
+    --port=80 \
+    --generator=run-pod/v1
 
 # Create a load balancer for Kubernetes deployment
 # Although port 80 is open to the deployment, external traffic can't reach the
