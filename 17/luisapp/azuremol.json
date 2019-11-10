@@ -1,9 +1,10 @@
 {
-  "luis_schema_version": "2.1.0",
-  "versionId": "0.1",
-  "name": "azuremol",
-  "desc": "Sample LUIS app for \"Learn Azure in a Month of Lunches\"",
+  "luis_schema_version": "4.0.0",
+  "versionId": "1.0",
+  "name": "azuremolikf",
+  "desc": "Sample app for MOL",
   "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
   "intents": [
     {
       "name": "greetings"
@@ -23,14 +24,25 @@
   ],
   "entities": [
     {
-      "name": "pizza.type"
+      "name": "pizzaType"
     }
   ],
-  "composites": [],
+  "composites": [
+    {
+      "name": "pizzaType",
+      "children": [
+        "topping"
+      ],
+      "roles": []
+    }
+  ],
   "closedLists": [],
-  "bing_entities": [],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
   "model_features": [],
   "regex_features": [],
+  "patterns": [],
   "utterances": [
     {
       "text": "do you have my order",
@@ -77,7 +89,7 @@
       "intent": "orderFood",
       "entities": [
         {
-          "entity": "pizza.type",
+          "entity": "pizzaType",
           "startPos": 11,
           "endPos": 19
         }
@@ -98,7 +110,7 @@
       "intent": "orderFood",
       "entities": [
         {
-          "entity": "pizza.type",
+          "entity": "pizzaType",
           "startPos": 4,
           "endPos": 9
         }
@@ -114,7 +126,7 @@
       "intent": "orderFood",
       "entities": [
         {
-          "entity": "pizza.type",
+          "entity": "pizzaType",
           "startPos": 6,
           "endPos": 14
         }
@@ -160,7 +172,7 @@
       "intent": "orderFood",
       "entities": [
         {
-          "entity": "pizza.type",
+          "entity": "pizzaType",
           "startPos": 0,
           "endPos": 5
         }
@@ -201,5 +213,6 @@
       "intent": "orderStatus",
       "entities": []
     }
-  ]
+  ],
+  "settings": []
 }
