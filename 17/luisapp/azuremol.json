@@ -27,15 +27,7 @@
       "name": "pizzaType"
     }
   ],
-  "composites": [
-    {
-      "name": "pizzaType",
-      "children": [
-        "topping"
-      ],
-      "roles": []
-    }
-  ],
+  "composites": [],
   "closedLists": [],
   "patternAnyEntities": [],
   "regex_entities": [],
