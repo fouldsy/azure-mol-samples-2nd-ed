@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"" type="text/javascript" charset="utf-8"></script>
+
+    <title>Azure Month of Lunches IoT</title>
+</head>
+
+<body>
+    <p id='pi-data'></p>
+    <script>
+      var HOST = location.origin.replace(/^http/, 'ws')
+      var ws = new WebSocket(HOST);
+      var el = document.getElementById('pi-data');
+      ws.onmessage = function (event) {
+        var parsed = JSON.parse(event.data);
+        console.log(parsed);
+        el.innerHTML = parsed.DeviceId + '<br />Temperature: ' + (parsed.IotData.temperature).toFixed(1) + ' C<br />Humidity: ' + (parsed.IotData.humidity).toFixed(1) + ' %<br />Last update: ' + parsed.MessageDate;
+        };
+    </script>
+</body>
+
+</html>
