@@ -50,20 +50,6 @@ az keyvault key create \
     --name azuremolencryptionkey \
     --protection software
 
-# Create an Azure Active Directory service principal
-# A service principal is a special type of account in Azure Active Directory, seperate from regular user accounts
-# This servie principal is used to request access to the encryption key from Key Vault
-# Once the key is obtained from Key Vault, it can be used to encrypt / decrypt VMs 
-read spnId secret <<< $(az ad sp create-for-rbac --query [appId,password] -o tsv)
-
-# Set permissions on Key Vault with policy
-# The policy grants the service principal created in the previous step permissions to retrieve the key
-az keyvault set-policy \
-    --name $keyVaultName \
-    --spn $spnId   \
-    --key-permissions wrapKey   \
-    --secret-permissions set
-
 # Create a VM
 az vm create \
     --resource-group azuremolchapter14 \
@@ -78,9 +64,7 @@ az vm encryption enable \
     --resource-group azuremolchapter14 \
     --name molvm \
     --disk-encryption-keyvault $keyVaultName \
-    --key-encryption-key azuremolencryptionkey \
-    --aad-client-id $spnId \
-    --aad-client-secret $secret
+    --key-encryption-key azuremolencryptionkey
 
 # Monitor the encryption status
 # When the status reports as VMRestartPending, the VM must be restarted to finalize encryption
