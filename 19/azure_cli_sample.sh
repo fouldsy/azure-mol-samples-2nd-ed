@@ -39,7 +39,7 @@ az aks create \
   --name azuremol \
   --node-count 2 \
   --vm-set-type VirtualMachineScaleSets \
-  --node-zones 1 2 3
+  --zones 1 2 3
 
 # Get the AKS credentials
 # This gets the Kuebernetes connection information and applies to a local
