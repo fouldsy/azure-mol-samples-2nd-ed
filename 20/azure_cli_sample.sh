@@ -13,6 +13,11 @@
 # Create a resource group
 az group create --name azuremolchapter20 --location eastus
 
+# Add the Azure IoT CLI extension
+# This CLI extension provides some additional functionality to the core Azure
+# CLI 2.0, and can be updated out-of-band from the core tooling itself.
+az extension add --name azure-cli-iot-ext
+
 # Create an IoT Hub
 # A Hub provides you with a way to connect, provision, and secure IoT devices
 # and allow other services and applications to use the IoT devices. The free
@@ -20,12 +25,8 @@ az group create --name azuremolchapter20 --location eastus
 az iot hub create \
     --resource-group azuremolchapter20 \
     --name azuremol \
-    --sku f1
-
-# Add the Azure IoT CLI extension
-# This CLI extension provides some additional functionality to the core Azure
-# CLI 2.0, and can be updated out-of-band from the core tooling itself.
-az extension add --name azure-cli-iot-ext
+    --sku f1 \
+    --partition-count 2
 
 # Create an IoT identity
 # An identity is used by an IoT device to connect to the Azure IoT Hub. Each
