@@ -1,5 +1,5 @@
 Supporting resources for "Learn Azure in a Month of Lunches - 2nd edition" by Manning Publications
-More info on the book available here - https://www.manning.com/books/learn-azure-in-a-month-of-lunches
+More info on the book available here - https://www.manning.com/books/learn-azure-in-a-month-of-lunches-second-edition
 
 This repo contains sample scripts used throughout the chapters.
 
