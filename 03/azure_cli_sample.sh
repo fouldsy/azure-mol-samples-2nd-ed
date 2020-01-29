@@ -46,11 +46,11 @@ az webapp deployment user set \
     --password M0lPassword!
 
 # Clone the Azure MOL sample repo, if you haven't already
-cd ~ && git clone https://github.com/fouldsy/azure-mol-samples.git
-cd azure-mol-samples/3/prod
+cd ~ && git clone https://github.com/fouldsy/azure-mol-samples-2nd-ed.git
+cd azure-mol-samples-2nd-ed/03/prod
 
 # Initialize the directory for use with Git, add the sample files, and commit
-git init && git add . && git commit -m “Pizza”
+git init && git add . && git commit -m "Pizza"
 
 # Add your Web App as a remote destination in Git
 git remote add azure $(az webapp deployment source config-local-git \
