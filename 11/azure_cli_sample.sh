@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# This script sample is part of "Learn Azure in a Month of Lunches" (Manning
+# This script sample is part of "Learn Azure in a Month of Lunches - 2nd edition" (Manning
 # Publications) by Iain Foulds.
 #
 # This sample script covers the exercises from chapter 11 of the book. For more
 # information and context to these commands, read a sample of the book and
-# purchase at https://www.manning.com/books/learn-azure-in-a-month-of-lunches
+# purchase at https://www.manning.com/books/learn-azure-in-a-month-of-lunches-second-edition
 #
 # This script sample is released under the MIT license. For more information,
-# see https://github.com/fouldsy/azure-mol-samples/blob/master/LICENSE
+# see https://github.com/fouldsy/azure-mol-samples-2nd-ed/blob/master/LICENSE
 
 # Define variables for unique resource names
 # As we create DNS entries for Traffic Manager profiles and Web Apps, these
@@ -195,10 +195,10 @@ az webapp deployment user set \
     --password M0lPassword!
 
 # Clone the Azure MOL sample repo, if you haven't already
-cd ~ && git clone https://github.com/fouldsy/azure-mol-samples.git
+cd ~ && git clone https://github.com/fouldsy/azure-mol-samples-2nd-ed.git
 
 # Initialize and push the Web Application with Git for the East US Web App
-cd ~/azure-mol-samples/11/eastus
+cd ~/azure-mol-samples-2nd-ed/11/eastus
 git remote remove eastus
 git init && git add . && git commit -m “Pizza”
 git remote add eastus $(az webapp deployment source config-local-git \
@@ -207,7 +207,7 @@ git remote add eastus $(az webapp deployment source config-local-git \
 git push eastus master
 
 # Initialize and push the Web Application with Git for the West Europe Web App
-cd ~/azure-mol-samples/11/westeurope
+cd ~/azure-mol-samples-2nd-ed/11/westeurope
 git remote remove westeurope
 git init && git add . && git commit -m “Pizza”
 git remote add westeurope $(az webapp deployment source config-local-git \

@@ -27,7 +27,7 @@
     "availabilitySetName": "azuremolavailabilityset",
     "vmSize": "Standard_B1ms",
     "vmName": "vm",
-    "ubuntuOSVersion": "16.04-LTS",
+    "ubuntuOSVersion": "18.04-LTS",
     "location": "[resourceGroup().location]",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
