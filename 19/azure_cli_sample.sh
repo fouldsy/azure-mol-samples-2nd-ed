@@ -3,7 +3,7 @@
 # This script sample is part of "Learn Azure in a Month of Lunches - 2nd edition" (Manning
 # Publications) by Iain Foulds.
 #
-# This sample script covers the exercises from chapter 15 of the book. For more
+# This sample script covers the exercises from chapter 19 of the book. For more
 # information and context to these commands, read a sample of the book and
 # purchase at https://www.manning.com/books/learn-azure-in-a-month-of-lunches-second-edition
 #
