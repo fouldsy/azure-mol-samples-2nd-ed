@@ -20,7 +20,7 @@
 // Include and define the Express components for a basic web server
 var express = require('express')
 var app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // Include the CosmosDB components and define connection information
 const CosmosClient = require('@azure/cosmos').CosmosClient
